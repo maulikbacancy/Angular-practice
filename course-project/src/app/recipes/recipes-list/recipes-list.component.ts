@@ -10,16 +10,10 @@ import { Recipes } from '../recipes.model';
 export class RecipesListComponent implements OnInit {
 
   recipes: Recipes[];
-  @Output()recipeWasSetected = new EventEmitter<Recipes>();
 
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit(): void {
     this.recipes = this.recipeService.getRecipes();
   }
-
-  onRecipeSelcted(recipe: Recipes) {
-    this.recipeWasSetected.emit(recipe);
-  }
-
 }
