@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { PostService } from './post.service';
+import { Post } from './post.model'
 
 @Component({
   selector: 'app-root',
@@ -8,46 +9,45 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loadedPosts = [];
+  loadedPosts: Post[] = [];
+  isfetching = false;
+  error: string;
+  isError = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private postService: PostService) {}
   private readonly _url = 'https://maru-potanu.firebaseio.com/posts.json';
 
   ngOnInit() {
-    this.fetchPost();
+    this.onFetchPosts();
   }
 
-  onCreatePost(postData: { title: string; content: string }) {
+  onCreatePost(postData: Post) {
     // Send Http request
-    this.http.post(this._url, postData).subscribe(
-      (response) => {
-        console.log(response);
-      }
-    )
+    this.postService.createAndStrorePost(postData.title, postData.content);
   }
 
   onFetchPosts() {
     // Send Http request
-    this.fetchPost();
+    this.isError = false;
+    this.isfetching = true;
+    this.postService.fetchPost()
+      .subscribe( posts => {
+        this.isfetching = false;
+        this.loadedPosts = posts;
+      }, error => {
+        this.isfetching= false;
+        this.isError = true;
+        this.error = error.error.error;
+        console.log(error.message);
+      });
   }
 
   onClearPosts() {
     // Send Http request
-  }
-
-  fetchPost() {
-    this.http.get(this._url)
-      .pipe( map( respoceData => {
-        const postArray = [];
-        for(const key in respoceData) {
-          if (respoceData.hasOwnProperty(key)) {
-            postArray.push({...respoceData[key], id: key});
-          }
-        }
-        return postArray;
-      }))
-      .subscribe( posts => {
-      console.log(postsz);
-    });
+    this.postService.clearPost().subscribe(
+      () => {
+        this.loadedPosts = [];
+      }
+    );
   }
 }
