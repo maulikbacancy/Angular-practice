@@ -14,10 +14,8 @@ export class AppComponent {
 
   public onDownload(): void {
     domtoimage.toPng(this.screen.nativeElement).then(res => {
-      console.log(res);
-      
       this.downloadLink.nativeElement.href = res;
-      this.downloadLink.nativeElement.download = 'marble-diagram.png';
+      this.downloadLink.nativeElement.download = 'maulik.png';
       this.downloadLink.nativeElement.click();
     }) 
   }
