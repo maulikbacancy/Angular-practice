@@ -1,0 +1,27 @@
+<div class="container ">
+  <div class="row justify-content-center align-items-center" >
+    <div class="col-md-4">
+    <div id="login-column" class="form-group">
+      <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+        <div class="row justify-content-center align-items-center h2">Contact</div>
+        name<br />
+        <input
+          type="text"
+          class="form-control input-text"
+          ngModel
+          name="email"
+          required
+        />
+        <br/>
+        Email <br />
+        <input type="text" name="password" class="form-control input-text" ngModel required />
+        <br />
+        Message <br>
+        <textarea name="message" class="input-text" style="width: 100%" rows="6"></textarea>
+        <button type="submit" [disabled]="!loginForm.valid" style="background-color: darkblue;">
+          SUBMIT
+        </button>
+      </form>
+    </div></div>
+  </div>
+</div>

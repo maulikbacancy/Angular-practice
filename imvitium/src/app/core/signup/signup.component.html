@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8"></div>
+    <div class="col-lg-4">
+      <div id="login-column" class="form-group">
+        <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+          <div class="row justify-content-center align-items-center h4">
+            SIGN UP
+          </div>
+          name <br />
+          <input
+            type="text"
+            class="form-control input-text"
+            ngModel
+            name="name"
+            required
+          />
+
+          E-mail <br />
+          <input
+            type="text"
+            name="email"
+            class="form-control input-text"
+            ngModel
+            required
+            minlength="6"
+          />
+
+          username <br />
+          <input
+            type="text"
+            name="username"
+            class="form-control input-text"
+            ngModel
+            required
+            minlength="6"
+          />
+
+          Passsword <br />
+          <input
+            type="text"
+            name="password"
+            class="form-control input-text"
+            ngModel
+            required
+            minlength="6"
+          />
+
+          Confirm Passsword <br />
+          <input
+            type="text"
+            name="comfrim-password"
+            class="form-control input-text"
+            ngModel
+            required
+            minlength="6"
+          />
+          <br />
+          <button class="center" type="submit" [disabled]="!loginForm.valid">
+            LOGIN
+          </button>
+          <a
+            href=""
+            class="row justify-content-center align-items-center"
+            style="color: white"
+            >Already Have Account ? Log In</a
+          >
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
